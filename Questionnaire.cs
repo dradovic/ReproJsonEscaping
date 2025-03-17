@@ -9,7 +9,12 @@
 
     public class QuestionnaireSection
     {
-        public List<TranslatedString> Questions { get; set; } = new();
+        public List<QuestionnaireQuestion> Questions { get; set; } = new();
+    }
+
+    public class QuestionnaireQuestion
+    {
+        public List<TranslatedString> TranslatedQuestions { get; set; } = new();
     }
 
     public record TranslatedString(string Language, string Value);
