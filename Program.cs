@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ReproJsonEscaping;
 
 using (var db = new MyDbContext())
@@ -7,10 +7,10 @@ using (var db = new MyDbContext())
     db.Questionnaires.ExecuteDelete();
 
     db.Questionnaires.AddRange([
-        new Questionnaire { Answers = [ new() { Content = @"New York" }] },
-        new Questionnaire { Answers = [ new() { Content = @"Zürich has one Umlaut" }] },
-        new Questionnaire { Answers = [ new() { Content = @"Zürich\nCH has one escape char and an Umlaut" }] },
-        new Questionnaire { Answers = [ new() { Content = @"New York\nUS has one escape char" }] },
+        new Questionnaire { Questions = [new("en", @"Change of address?")], Answers = [ new() { Content = @"New York" }] },
+        new Questionnaire { Questions = [new("de", @"Addressänderung?")], Answers = [ new() { Content = @"Zürich has one Umlaut" }] },
+        new Questionnaire { Questions = [new("de", @"Addressänderung?\nWeiteres?")], Answers = [ new() { Content = @"Zürich\nCH has one escape char and an Umlaut" }] },
+        new Questionnaire { Questions = [new("en", @"Where do you live?\nComments?")], Answers = [ new() { Content = @"New York\nUS has one escape char" }] },
     ]);
     db.SaveChanges();
 }
@@ -20,13 +20,13 @@ using (var db = new MyDbContext())
     int i = 0;
     foreach (var questionnaire in db.Questionnaires)
     {
-        Console.WriteLine($"{++i}: {questionnaire.Answers.Single().Content}");
+        Console.WriteLine($"{++i}: {questionnaire.Questions.Single().Value}: {questionnaire.Answers.Single().Content}");
     }
     // prints:
-    // 1: New York
-    // 2: Zürich has one Umlaut
-    // 3: Zürich\nCH has one escape char and an Umlaut
-    // 4: New York\nUS has one escape char
+    // 1: Change of address?: New York
+    // 2: Addressänderung ?: Zürich has one Umlaut
+    // 3: Addressänderung ?\nWeiteres ?: Zürich\nCH has one escape char and an Umlaut
+    // 4: Where do you live?\nComments ?: New York\nUS has one escape char
 }
 
 Console.ReadLine();
