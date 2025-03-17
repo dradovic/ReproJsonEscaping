@@ -11,7 +11,11 @@ namespace ReproJsonEscaping
             base.OnModelCreating(builder);
 
             builder.Entity<Questionnaire>()
-                .OwnsMany(s => s.Questions, x => x.ToJson());
+                .OwnsMany(x => x.Sections, x =>
+                {
+                    x.OwnsMany(s => s.Questions, q => q.ToJson());
+                    x.ToJson();
+                });
 
             builder.Entity<Questionnaire>()
                 .OwnsMany(x => x.Answers, x => x.ToJson());

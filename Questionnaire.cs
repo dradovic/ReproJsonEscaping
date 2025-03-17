@@ -3,8 +3,13 @@
     public class Questionnaire
     {
         public int Id { get; set; }
-        public List<TranslatedString> Questions { get; set; } = null!;
+        public List<QuestionnaireSection> Sections { get; set; } = new();
         public List<QuestionnaireAnswer> Answers { get; set; } = null!;
+    }
+
+    public class QuestionnaireSection
+    {
+        public List<TranslatedString> Questions { get; set; } = new();
     }
 
     public record TranslatedString(string Language, string Value);
