@@ -21,7 +21,10 @@
 
     public class QuestionnaireAnswer
     {
-        public string Content { get; set; } = null!;
+        public Guid QuestionId { get; set; }
         public string? Comment { get; set; }
+        public bool? BoolValue { get; set; }
+        public int? IntValue { get; set; }
+        public string? StringValue { get; set; }
     }
 }
