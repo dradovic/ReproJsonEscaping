@@ -22,5 +22,6 @@
     public class QuestionnaireAnswer
     {
         public string Content { get; set; } = null!;
+        public string? Comment { get; set; }
     }
 }
